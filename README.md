@@ -17,6 +17,7 @@ synthetic-data-generator/
 ├── code/                     # Python scripts (generation, loading textures, etc.)
 ├── data/
 │   └── generated\_data/       # Output images and annotations
+├── docs/                     # Images of some samples.
 ├── resources/                # External assets like CC Textures
 ├── README.md
 
@@ -30,7 +31,9 @@ Here are examples of generated data:
 
 | RGB Image | Segmentation Mask |
 |----------|-------------------|
-| ![Sample RGB](data/generated_data/sample_rgb.png) | ![Sample Mask](data/generated_data/sample_mask.png) |
+| ![Sample RGB](docs/1.jpg) | ![Sample Mask](docs/1_mask.PNG) |
+| ![Sample RGB](docs/2.jpg) | ![Sample Mask](docs/2_mask.PNG) |
+| ![Sample RGB](docs/3.jpg) | ![Sample Mask](docs/3_mask.PNG) |
 
 > Under **`data/generated_data/`** you can find the data we generated to train our networks. Be careful, this is a huge file!
 
