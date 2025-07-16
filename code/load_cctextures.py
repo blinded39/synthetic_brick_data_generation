@@ -1,40 +1,51 @@
-import blenderproc as bproc
+import blenderproc as bproc 
 import os
+import zipfile
+import requests
+from io import BytesIO
+from blenderproc.python.loader.CCMaterialLoader import load_ccmaterials
 
-# Initialize BlenderProc
-bproc.init()
+# List of asset names to download from AmbientCG (you can extend this list)
+ASSETS_TO_DOWNLOAD = [
+    "Bricks024", "Concrete051", "Wood049"
+]
 
-# Create a simple plane
-plane = bproc.object.create_primitive('PLANE', scale=[2, 2, 1])
-plane.set_location([0, 0, 0])
+# AmbientCG base URL for downloads
+BASE_URL = "https://ambientcg.com/get"
 
+# Target folder
 base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+TARGET_FOLDER = os.path.join(base_dir, 'resources')
 
-# Replace 'ground_asphalt_03' with any available asset name from ambientcg.com
-texture_dir = bproc.loader.load_cc_textures(
-    cc_textures=[
-        {
-            "name": "ground_asphalt_03",  # <- change to any texture you want
-            "type": "surface"             # usually 'surface' or 'imperfection'
-        }
-    ],
-    data_dir=os.path.join(base_dir, 'resources') # local cache dir; will be created if it doesn't exist
-)
 
-# Get the material from the loaded texture
-material = bproc.material.create_material_from_cc_texture(os.path.join(texture_dir, "ground_asphalt_03"))
+def download_and_extract_asset(asset_name: str, target_folder: str):
+    print(f"Downloading {asset_name}...")
+    # Construct URL: e.g., https://ambientcg.com/get?file=Bricks024_2K-JPG.zip
+    url = f"{BASE_URL}?file={asset_name}_2K-JPG.zip"
+    response = requests.get(url)
+    if response.status_code != 200:
+        print(f"Failed to download {asset_name} from {url}")
+        return
 
-# Assign the material to the plane
-plane.set_material(material)
+    with zipfile.ZipFile(BytesIO(response.content)) as z:
+        z.extractall(os.path.join(target_folder, asset_name))
+    print(f"✓ {asset_name} downloaded and extracted.")
 
-# Set up the camera
-bproc.camera.add_camera_pose(bproc.math.build_transformation_mat([3, -3, 3], [1.1, 0, 0.8]))
-bproc.camera.set_resolution(512, 512)
 
-# Set up lighting
-bproc.light.add_point_light(location=[2, -2, 4], energy=100)
+def main():
+    os.makedirs(TARGET_FOLDER, exist_ok=True)
 
-# Render
-bproc.renderer.set_output_dir("./output")
-data = bproc.renderer.render()
-bproc.writer.write_hdf5("./output/scene.hdf5", data)
+    for asset in ASSETS_TO_DOWNLOAD:
+        asset_folder = os.path.join(TARGET_FOLDER, asset)
+        if not os.path.exists(asset_folder):
+            download_and_extract_asset(asset, TARGET_FOLDER)
+        else:
+            print(f"{asset} already exists. Skipping download.")
+
+    print("Loading materials into Blender...")
+    materials = load_ccmaterials(folder_path=TARGET_FOLDER)
+    print(f"Loaded {len(materials)} materials.")
+
+
+if __name__ == "__main__":
+    main()

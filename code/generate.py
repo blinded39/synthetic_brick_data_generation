@@ -225,7 +225,8 @@ def brickwall(geometry: Geometry, brick: Object, top_mortar: Object, brick_layer
     full_wall_geometry = join_geometry(geometry=[middle_brick_points, main_brick_points.inverted, rest_top_layer_points])
 
     # Place the instances of the brick on the wall
-    brick_rotation = align_euler_to_vector(vector=named_attribute(data_type=NamedAttribute.DataType.FLOAT_VECTOR, name='tan'))
+    brick_rotation = align_euler_to_vector(vector=named_attribute(data_type=NamedAttribute.DataType.FLOAT_VECTOR, name='tan')["attribute"])
+
     brick_instances = instance_on_points(points=full_wall_geometry, instance=brick_cube, rotation=brick_rotation)
 
     # # Create mortar on some top layer
