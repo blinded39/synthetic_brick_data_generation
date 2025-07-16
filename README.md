@@ -1,4 +1,3 @@
-```markdown
 # 🧱 Synthetic Photorealistic Brick Data Generator
 
 This project generates high-quality, photorealistic, and annotated images of synthetic bricks using [BlenderProc](https://github.com/DLR-RM/BlenderProc), [bpy](https://pypi.org/project/bpy/), and [geometry-script](https://github.com/carson-katri/geometry-script). The resulting images and segmentation masks are used to train deep learning models for object detection and pose estimation in existing brickwork structures.
