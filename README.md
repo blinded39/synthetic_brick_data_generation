@@ -38,16 +38,9 @@ Here are examples of generated data:
 
 ## Installation
 
-1. **Install Blender**  
-   Use a Blender version with **Python 3.11** (e.g., Blender 3.6.x)
-
-2. **Set up Conda Environment**
-
-```bash
-conda create -n gen_env python=3.11
-conda activate gen_env
-pip install -r blenderproc/requirements.txt
-````
+1. Install **Blender** version with **Python 3.10** (e.g., Blender 3.6.x)
+2. Install **geometry_script** according to [instructions](https://carson-katri.github.io/geometry-script/setup/installation.html).
+3. Install **BlenderProc** in version **2.5.0** according to [instructions](https://github.com/DLR-RM/BlenderProc).
 
 ---
 
