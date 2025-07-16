@@ -1,8 +1,11 @@
 # 🧱 Synthetic Photorealistic Brick Data Generator
 
-This project generates high-quality, photorealistic, and annotated images of synthetic bricks using [BlenderProc](https://github.com/DLR-RM/BlenderProc), [bpy](https://pypi.org/project/bpy/), and [geometry-script](https://github.com/carson-katri/geometry-script). The resulting images and segmentation masks are used to train deep learning models for object detection and pose estimation in existing brickwork structures.
+This project generates high-quality, photorealistic, and annotated images of synthetic bricks using 
+- [BlenderProc](https://github.com/DLR-RM/BlenderProc),
+- [bpy](https://pypi.org/project/bpy/),
+- [geometry-script](https://github.com/carson-katri/geometry-script).
 
-The pipeline includes:
+The resulting images and segmentation masks are used to train deep learning models for object detection and pose estimation in existing brickwork structures. The pipeline includes:
 - Randomized scene generation with procedural geometry using Geometry Nodes
 - Physically-based rendering with BlenderProc
 - Automatic generation of segmentation masks and COCO annotations
@@ -35,8 +38,21 @@ Here are examples of generated data:
 | ![Sample RGB](docs/2.jpg) | ![Sample Mask](docs/2_mask.PNG) |
 | ![Sample RGB](docs/3.jpg) | ![Sample Mask](docs/3_mask.PNG) |
 
-> Under **`data/generated_data/`** you can find the data we generated to train our networks. Be careful, this is a huge file!
+---
 
+## Cloning the repo (without large files)
+
+Under **`data/generated_data/`** you can find the data we generated to train our networks. Be careful, this is a large file! Here's how to clone the repository **without downloading LFS-tracked files** (like `data/generated_data`):
+
+```bash
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/blinded39/synthetic_brick_data_generation.git
+```
+
+If you later want to download specific LFS files, you can run:
+
+```bash
+git lfs pull --include="data/generated_data/occluded_data"
+```
 ---
 
 ## Installation
