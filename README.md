@@ -100,6 +100,6 @@ Replace `/home/your-name/...` with the correct path to your dataset folder.
 
 ## Notes
 
-* Requires `cv2`, `skimage`, and other Python libraries listed in your `requirements.txt`.
+* Requires `cv2`, `skimage`, and other Python libraries.
 * Designed for training models on occluded, photorealistic, and segmented brick instances.
 * You can extend `generate.py` to control your output directory, number of views, lighting, camera positioning, or class variations.
