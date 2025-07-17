@@ -67,7 +67,7 @@ git lfs pull --include="data/generated_data/occluded_data"
 
 ### 1. Load CC Textures into Resources
 
-Download and organize your [CC Textures](https://cc0textures.com/) into the `resources/` folder. You can rename the textures as needed.
+Download and organize your [CC Textures](https://cc0textures.com/) into the `resources/` folder. You can rename the textures as needed. These will be used randomly for the environment.
 
 ```bash
 blenderproc run load_cctextures.py resources --custom-blender-path ~/blender/blender-3.6.x-linux-x64
@@ -75,17 +75,23 @@ blenderproc run load_cctextures.py resources --custom-blender-path ~/blender/ble
 
 ### 2. Generate a Single Scene
 
+This is the most interesting code, to generate randomized mortar-occluded brick wall geometries with randomized textures and render them with randomized settings.
+
 ```bash
 blenderproc run generate.py resources --custom-blender-path ~/blender/blender-3.6.x-linux-x64
 ```
 
 ### 3. Render Multiple Scenes in Batch
 
+This is to run the previous code multiple times, to generate a lot of data!
+
 ```bash
-python run_multi.py run generate.py resources --custom-blender-path ~/blender/blender-3.6.x-linux-x64
+python3 run_multi.py run generate.py resources --custom-blender-path ~/blender/blender-3.6.x-linux-x64
 ```
 
 ### 4. Visualize Dataset
+
+See the masked version of the images via:
 
 ```bash
 blenderproc vis coco \
@@ -94,7 +100,7 @@ blenderproc vis coco \
   -b /home/your-name/synthetic_brick_data_generation/data/test_output/train_pbr/000000
 ```
 
-Replace `/home/your-name/...` with the correct path to your dataset folder.
+Replace `/home/your-name/...` with the correct path to your dataset folder, 0 with the image number and `.../train_pbr/000000` with the folder you like.
 
 ---
 
