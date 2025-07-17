@@ -13,6 +13,6 @@ used_arguments = sys.argv[1:]
 output_location = os.path.abspath(sys.argv[-1])
 for run_id in range(N):
     # in each run, the arguments are reused
-    cmd = ["python", os.path.join(rerun_folder, "cli.py")]
+    cmd = [sys.executable, os.path.join(rerun_folder, "cli.py")]
     cmd.extend(used_arguments)
     subprocess.call(" ".join(cmd), shell=True)
